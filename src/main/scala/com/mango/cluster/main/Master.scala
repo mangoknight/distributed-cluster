@@ -55,7 +55,7 @@ object Master{
         s"ds.cluster.masters: ${masters.mkString(", ")}")
       System.exit(-1)
     }
-    val masterList = masters.map(master => s"akka.tcp://ds@$master").toList.asJava
+    val masterList = masters.map(master => s"akka.tcp://$CLUSTER_SYSTEM@$master").toList.asJava
     val quorum = 1
     val masterConfig = akkaConf.
       withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(port)).
@@ -63,7 +63,7 @@ object Master{
       withValue("akka.cluster.seed-nodes", ConfigValueFactory.fromAnyRef(masterList))
 
     LOG.info(s"Starting Master Actor system $ip:$port, master list: ${masters.mkString(";")}")
-    val system = ActorSystem("ds", masterConfig)
+    val system = ActorSystem(CLUSTER_SYSTEM, masterConfig)
 
 
     //    val ref = system.actorOf(Props[SharedLeveldbStore], "store")

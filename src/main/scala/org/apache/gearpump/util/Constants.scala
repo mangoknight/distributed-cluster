@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 object Constants {
 
   val CLUSTER_MASTERS = "ds.cluster.masters"
-
+  val CLUSTER_SYSTEM = "ds"
   val MASTER = "master"
   val WORKER = "worker"
 

@@ -20,6 +20,7 @@ object Entity{
 class Entity extends Actor{
   override def receive: Receive = {
     case Hello(id,content) =>
+      println("收到"+content)
       sender() ! self.path.address.toString + "  " +self.path.name
   }
 }

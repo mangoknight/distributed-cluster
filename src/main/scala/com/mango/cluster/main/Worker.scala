@@ -6,7 +6,7 @@ import com.mango.cluster.ddata.InMemoryKVService
 import com.mango.cluster.entities.Entity
 import com.typesafe.config.{Config, ConfigValueFactory}
 import org.apache.gearpump.cluster.ClusterConfig
-import org.apache.gearpump.util.Constants.NETTY_TCP_HOSTNAME
+import org.apache.gearpump.util.Constants._
 import org.apache.gearpump.util.LogUtil
 import org.apache.gearpump.util.LogUtil.ProcessType
 import org.slf4j.Logger
@@ -33,7 +33,7 @@ object Worker {
       withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(ipconfig("-port"))).
       withValue(NETTY_TCP_HOSTNAME, ConfigValueFactory.fromAnyRef(ipconfig("-ip")))
 
-    val system = ActorSystem("rs", workerConfig)
+    val system = ActorSystem(CLUSTER_SYSTEM, workerConfig)
 
     val kvService = system.actorOf(Props(new InMemoryKVService()), "kvService")
     // 创建分片
